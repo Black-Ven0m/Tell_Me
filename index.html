@@ -1,0 +1,230 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ZEROHEX</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Courier New", monospace;
+      background: linear-gradient(135deg, #000, #300);
+      color: #f00;
+      overflow-x: hidden;
+    }
+    header {
+      padding: 20px;
+      text-align: center;
+      border-bottom: 2px solid #f00;
+      background: #000;
+    }
+    header h1 {
+      font-size: 3em;
+      color: #f00;
+      text-shadow: 0 0 10px #f00, 0 0 20px #900;
+      animation: glitch 1s infinite;
+    }
+    nav {
+      text-align: center;
+      margin-top: 10px;
+    }
+    nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: #f00;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    nav a:hover {
+      color: #fff;
+      text-shadow: 0 0 8px #f00;
+    }
+    section {
+      padding: 50px;
+      text-align: center;
+    }
+    h2 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+      color: #f00;
+      text-shadow: 0 0 10px #f00;
+    }
+    p {
+      font-size: 1.2em;
+      line-height: 1.6em;
+      max-width: 800px;
+      margin: auto;
+      color: #fff;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      border-top: 2px solid #f00;
+      margin-top: 40px;
+      color: #f00;
+    }
+    form {
+      background: #111;
+      border: 2px solid #f00;
+      border-radius: 10px;
+      padding: 20px;
+      max-width: 400px;
+      margin: 30px auto;
+      box-shadow: 0 0 20px #900;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 5px;
+      font-family: inherit;
+    }
+    input[type="text"], textarea {
+      background: #222;
+      color: #fff;
+    }
+    button {
+      background: #f00;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #900;
+    }
+    @keyframes glitch {
+      0% { text-shadow: 2px 2px #900, -2px -2px #600; }
+      20% { text-shadow: -2px -2px #600, 2px 2px #900; }
+      40% { text-shadow: 2px -2px #600, -2px 2px #900; }
+      60% { text-shadow: -2px 2px #600, 2px -2px #900; }
+      80% { text-shadow: 2px 2px #600, -2px -2px #900; }
+      100% { text-shadow: 0 0 10px #f00; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>TELL ME</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="index.html">Home</a>
+      <a href="index.html">Home</a>
+      <a href="index.html">Anonymous Chat</a>
+    </nav>
+  </header>
+
+  <section>
+    <h2>TELL ME </h2>
+    <p>
+      Tell Me Is A Website Where You Can Send Me Direct Msg To Me.<br><br>
+      Known by the codename <b>∆VNM▲GØD</b>, ZEROHEX is the venom in the shadows —  
+      ruthless, silent, and untouchable.<br><br>
+      The philosophy: <i>"We are the chaos inside the system,  
+      the glitch in the matrix, the venom in their code."</i>
+    </p>
+  </section>
+
+  <section>
+    <h2>Anonymous Chat</h2>
+    <form id="chatForm">
+      <input type="text" id="username" placeholder="Enter your username" required>
+      <textarea id="message" placeholder="Enter your message" required></textarea>
+      <button type="submit">Send</button>
+    </form>
+    <p id="status"></p>
+  </section>
+
+  <footer>
+    <p>© ZEROHEX | Founder of BLACK VENOM</p>
+  </footer>
+
+  <script>
+    // --- Lightweight Obfuscation (not full security) ---
+    // Base64-encoded + chunked token & chat_id. They are reconstructed at runtime.
+    const _bt = [
+      "Nzc0OTYyNzM2NzpBQUhC",
+      "elhPM0t1UXVnakVKVjBO",
+      "RlVzYlFJWDZUWWZoRVh4TQ=="
+    ].join("");
+    const _cid = [
+      "LTEwMDMwMzU",
+      "zNjA2MjE="
+    ].join("");
+    const botToken = atob(_bt);
+    const chatId = atob(_cid);
+
+    function esc(s){
+      return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+
+    function formatIST(date){
+      return new Date(date).toLocaleString('en-IN',{
+        timeZone: 'Asia/Kolkata',
+        day: '2-digit', month: '2-digit', year: 'numeric',
+        hour: '2-digit', minute: '2-digit', hour12: true
+      }).replace(',', ' |');
+    }
+
+    document.getElementById("chatForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
+      const btn = this.querySelector('button');
+      const usernameRaw = document.getElementById("username").value.trim() || "Anonymous";
+      const messageRaw = document.getElementById("message").value.trim();
+      const status = document.getElementById("status");
+
+      if (!messageRaw) { status.innerText = "Message cannot be empty!"; return; }
+
+      // Build elite-styled message
+      const username = esc(usernameRaw);
+      const message = esc(messageRaw);
+      const stamp = formatIST(Date.now());
+      const text = `⚡️ <b>BLACK VENOM - Anonymous Drop</b> ⚡️
+
+` +
+                   `🕶 <b>User:</b> @${username}
+` +
+                   `💬 <b>Message:</b> ${message}
+
+` +
+                   `⏳ <b>Time:</b> ${stamp}
+` +
+                   `──────────────
+` +
+                   `#VENOM #ZEROHEX`;
+
+      const endpoint = ['https://','api.','telegram','.org/bot', botToken, '/sendMessage'].join('');
+
+      btn.disabled = true; btn.textContent = 'Sending…'; status.textContent = '';
+      try {
+        const res = await fetch(endpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            chat_id: chatId,
+            text: text,
+            parse_mode: "HTML",
+            disable_web_page_preview: true
+          })
+        });
+        if (res.ok) {
+          status.innerText = "✅ Message sent anonymously!";
+          document.getElementById("chatForm").reset();
+        } else {
+          const t = await res.text();
+          status.innerText = "❌ Failed to send: " + t;
+        }
+      } catch (err) {
+        status.innerText = "⚠️ Error: " + err;
+      } finally {
+        btn.disabled = false; btn.textContent = 'Send';
+      }
+    });
+  </script>
+</body>
+</html>
